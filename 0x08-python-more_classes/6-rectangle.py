@@ -1,30 +1,35 @@
 #!/usr/bin/python3
 """
-This is the "Rectangle"  module.
-This module provides a Rectangle class.
+A rectangle with width and height.
 """
 
 
 class Rectangle:
-    """A Rectangle class with attributes width and height,
-    methods area, perimeter, print, str, repr, and del, and
-    class attribute number_of_instances that keeps track of # of instances.
+    """
+    Rectangle functions and data
     """
 
+    # Public
     number_of_instances = 0
 
     def __init__(self, width=0, height=0):
+        """ Instantiation
+        """
         self.width = width
         self.height = height
         Rectangle.number_of_instances += 1
 
     @property
     def width(self):
+        """ Getter for width
+        """
         return self.__width
 
     @width.setter
     def width(self, value):
-        if type(value) is not int:
+        """ Setter for width
+        """
+        if type(value) != int:
             raise TypeError("width must be an integer")
         if value < 0:
             raise ValueError("width must be >= 0")
@@ -32,40 +37,61 @@ class Rectangle:
 
     @property
     def height(self):
+        """ Getter for height
+        """
         return self.__height
 
     @height.setter
     def height(self, value):
-        if type(value) is not int:
-            raise TypeError("height must be an integer")
+        """ Setter for height
+        """
+        if type(value) != int:
+            raise TypeError("width must be an integer")
         if value < 0:
             raise ValueError("height must be >= 0")
         self.__height = value
 
-    def __repr__(self):
-        return "Rectangle({:d}, {:d})".format(self.__width, self.__height)
-
-    def __str__(self):
-        total = ""
-        for i in range(self.__height):
-            total += ("#" * self.__width)
-            if i is not self.__height - 1:
-                total += "\n"
-        return total
-
-    def __del__(self):
-        print("Bye rectangle...")
-        Rectangle.number_of_instances -= 1
-
+    # Functions
     def area(self):
+        """ Returns area of rectangle
+        """
         return self.__width * self.__height
 
     def perimeter(self):
-        if self.__width is 0 or self.__height is 0:
+        """ Returns perimeter of rectangle
+        """
+        if self.__width == 0 or self.__height == 0:
             return 0
-        return (2 * self.__width) + (2 * self.__height)git add .
-git commit -m 6
-git push
-git add .
-git commit -m 6
-git push
+        else:
+            return 2 * (self.__width + self.__height)
+
+    def __str__(self):
+        """ print() __str__ method funtion to return rectangle in char '#'
+        """
+        res = ""
+        if self.__width == 0 or self.__height == 0:
+            return res
+
+        for i in range(self.__height):
+            if i == self.__height - 1:
+                res += ('#' * self.__width)
+            else:
+                res += (('#' * self.__width) + '\n')
+        return res
+
+    def __repr__(self):
+        """ print() or eval() __repr__ method function to return
+            ... Rectangle(width, height)
+        """
+        w = str(self.__width)
+        h = str(self.__height)
+
+        res = "Rectangle(" + w + ", " + h + ")"
+        return res
+
+    def __del__(self):
+        """ Print a message for del
+            Decrement instance when del is called
+        """
+        print("Bye rectangle...")
+        Rectangle.number_of_instances -= 1
